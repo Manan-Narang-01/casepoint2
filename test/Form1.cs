@@ -1,7 +1,12 @@
+using System.Data;
+using Npgsql;
+
 namespace test
 {
     public partial class Form1 : Form
     {
+    private string connectionstring = "Server=localhost;Port=5432;Database=intern093;User Id=postgres;Password=root";
+
         private EmployeeService service = new EmployeeService();
 
         public Form1()
@@ -34,7 +39,7 @@ namespace test
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             try
-            {
+            {   
                 Employee emp = new Employee
                 {
                     EmpId = int.Parse(txtEmpId.Text),
@@ -87,10 +92,25 @@ namespace test
             LoadEmployee();
         }
 
-        private void LoadEmployee()
+         private void LoadEmployee()
         {
-            dgvEmployees.DataSource = null;
-            dgvEmployees.DataSource = service.GetAllEmployee();
+            string sql = "SELECT * FROM t1 ORDER BY c_cid";
+
+            using (var connection = new NpgsqlConnection(connectionstring))
+            using (var cmd = new NpgsqlCommand(sql, connection))
+            {
+                try
+                {
+                    connection.Open();
+                    DataTable dt = new DataTable();
+                    dt.Load(cmd.ExecuteReader());
+                    dgvEmployees.DataSource = dt;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading employees: " + ex.Message);
+                }
+            }
         }
 
         private void clearfields()

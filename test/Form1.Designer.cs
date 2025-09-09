@@ -44,54 +44,62 @@ partial class Form1
         this.btnDelete = new System.Windows.Forms.Button();
         this.btnView = new System.Windows.Forms.Button();
         this.dgvEmployees = new System.Windows.Forms.DataGridView();
+
+
         this.lblEmpId.AutoSize = true;
         this.lblEmpId.Location = new System.Drawing.Point(30, 20);
-
-
-
         this.lblEmpId.Name = "lblEmpId";
         this.lblEmpId.Size = new System.Drawing.Size(55, 17);
         this.lblEmpId.Text = "Emp ID";
+
         this.lblEmpName.AutoSize = true;
         this.lblEmpName.Location = new System.Drawing.Point(30, 60);
         this.lblEmpName.Name = "1blEmpName";
         this.lblEmpName.Size = new System.Drawing.Size(77, 17);
         this.lblEmpName.Text = "Emp Name";
+
         this.lblsalary.AutoSize = true;
         this.lblsalary.Location = new System.Drawing.Point(30, 100);
         this.lblsalary.Name = "1blSalary";
         this.lblsalary.Size = new System.Drawing.Size(48, 17);
         this.lblsalary.Text = "Salary";
-        this.txtEmpId.Location = new System.Drawing.Point(120, 20);
+
+        this.txtEmpId.Location = new System.Drawing.Point(170, 17);
         this.txtEmpId.Name = "txtEmpId";
         this.txtEmpId.Size = new System.Drawing.Size(150, 22);
-        this.txtEmpName.Location = new System.Drawing.Point(120, 60);
+
+        this.txtEmpName.Location = new System.Drawing.Point(170, 57);
         this.txtEmpName.Name = "txtEmpName";
         this.txtEmpName.Size = new System.Drawing.Size(150, 22);
-        this.txtSalary.Location = new System.Drawing.Point(120, 100);
+
+        this.txtSalary.Location = new System.Drawing.Point(170, 97);
         this.txtSalary.Name = "txtSalary";
         this.txtSalary.Size = new System.Drawing.Size(150, 22);
-        this.btnAdd.Location = new System.Drawing.Point(300, 20);
+
+        this.btnAdd.Location = new System.Drawing.Point(350, 17);
         this.btnAdd.Name = "btnAdd";
-        this.btnAdd.Size = new System.Drawing.Size(100, 30);
+        this.btnAdd.Size = new System.Drawing.Size(100, 35);
         this.btnAdd.Text = "Add";
         this.btnAdd.UseVisualStyleBackColor = true;
         this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-        this.btnUpdate.Location = new System.Drawing.Point(300, 60);
+
+        this.btnUpdate.Location = new System.Drawing.Point(350, 57);
         this.btnUpdate.Name = "btnUpdate";
-        this.btnUpdate.Size = new System.Drawing.Size(100, 30);
+        this.btnUpdate.Size = new System.Drawing.Size(100, 45);
         this.btnUpdate.Text = "Update";
         this.btnUpdate.UseVisualStyleBackColor = true;
         this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-        this.btnDelete.Location = new System.Drawing.Point(300, 100);
+
+        this.btnDelete.Location = new System.Drawing.Point(350, 107);
         this.btnDelete.Name = "btnDelete";
-        this.btnDelete.Size = new System.Drawing.Size(100, 30);
+        this.btnDelete.Size = new System.Drawing.Size(100, 45);
         this.btnDelete.Text = "Delete";
         this.btnDelete.UseVisualStyleBackColor = true;
         this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-        this.btnView.Location = new System.Drawing.Point(300, 140);
+
+        this.btnView.Location = new System.Drawing.Point(350, 157);
         this.btnView.Name = "btnView";
-        this.btnView.Size = new System.Drawing.Size(100, 30);
+        this.btnView.Size = new System.Drawing.Size(100, 45);
         this.btnView.Text = "View All";
         this.btnView.UseVisualStyleBackColor = true;
         this.btnView.Click += new System.EventHandler(this.btnView_Click);
@@ -109,6 +117,9 @@ partial class Form1
         this.Controls.Add(this.btnUpdate);
         this.Controls.Add(this.btnAdd);
         this.Controls.Add(this.txtSalary);
+        this.Controls.Add(this.txtEmpId);
+        this.Controls.Add(this.lblsalary);
+        this.Controls.Add(this.txtEmpName);
         this.Controls.Add(this.lblEmpName);
         this.Controls.Add(this.lblEmpId);
         this.Name = "FrmEmployee";

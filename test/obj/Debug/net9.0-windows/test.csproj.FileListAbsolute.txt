@@ -17,3 +17,4 @@ C:\Users\asus\OneDrive\Documents\casepoint2\test\bin\Debug\net9.0-windows\Micros
 C:\Users\asus\OneDrive\Documents\casepoint2\test\bin\Debug\net9.0-windows\Npgsql.dll
 C:\Users\asus\OneDrive\Documents\casepoint2\test\obj\Debug\net9.0-windows\test.csproj.AssemblyReference.cache
 C:\Users\asus\OneDrive\Documents\casepoint2\test\obj\Debug\net9.0-windows\test.csproj.Up2Date
+C:\Users\asus\OneDrive\Documents\casepoint2\test\obj\Debug\net9.0-windows\test.sourcelink.json

@@ -10,10 +10,11 @@ public class EmployeeService
     {
         using var conn = new NpgsqlConnection(connectionstring);
         conn.Open();
-        using var command = new NpgsqlCommand("INSERT INTO t1(c_cid,c_name,c_balance) VALUES(@id,@name,@balance)", conn);
+        using var command = new NpgsqlCommand("INSERT INTO t1(c_cid,c_name,c_balance,c_country) VALUES(@id,@name,@balance,@country)", conn);
         command.Parameters.AddWithValue("id", emp.EmpId);
         command.Parameters.AddWithValue("name", emp.EmpName);
         command.Parameters.AddWithValue("balance", emp.EmpSalary);
+        command.Parameters.AddWithValue("country", emp.Country);
         command.ExecuteNonQuery();
     }
 
@@ -30,7 +31,8 @@ public class EmployeeService
             {
                 EmpId = reader.GetInt32(0),
                 EmpName = reader.GetString(1),
-                EmpSalary = reader.GetInt32(2)
+                EmpSalary = reader.GetInt32(2),
+                Country = reader.GetString(3)
             });
         }
         return list;
@@ -49,7 +51,9 @@ public class EmployeeService
             {
                 EmpId = reader.GetInt32(0),
                 EmpName = reader.GetString(1),
-                EmpSalary = reader.GetInt32(2)
+                EmpSalary = reader.GetInt32(2),
+                Country = reader.GetString(3)
+
             };
         }
         return null;
@@ -59,10 +63,11 @@ public class EmployeeService
     {
         using var conn = new NpgsqlConnection(connectionstring);
         conn.Open();
-        using var command = new NpgsqlCommand("UPDATE t1 SET c_name=@name, c_balance=@balance WHERE c_cid=@id", conn);
+        using var command = new NpgsqlCommand("UPDATE t1 SET c_name=@name, c_balance=@balance, c_country=@country WHERE c_cid=@id", conn);
         command.Parameters.AddWithValue("id", emp.EmpId);
         command.Parameters.AddWithValue("name", emp.EmpName);
         command.Parameters.AddWithValue("balance", emp.EmpSalary);
+        command.Parameters.AddWithValue("country", emp.Country);
         int rowaffected = command.ExecuteNonQuery();
         return rowaffected > 0;
     }

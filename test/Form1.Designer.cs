@@ -39,6 +39,7 @@ partial class Form1
         this.txtEmpId = new System.Windows.Forms.TextBox();
         this.txtEmpName = new System.Windows.Forms.TextBox();
         this.txtSalary = new System.Windows.Forms.TextBox();
+        this.txtSearch = new System.Windows.Forms.TextBox();
         this.btnAdd = new System.Windows.Forms.Button();
         this.btnUpdate = new System.Windows.Forms.Button();
         this.btnDelete = new System.Windows.Forms.Button();
@@ -58,11 +59,20 @@ partial class Form1
         this.lblEmpName.Size = new System.Drawing.Size(77, 17);
         this.lblEmpName.Text = "Emp Name";
 
+        
+
         this.lblsalary.AutoSize = true;
         this.lblsalary.Location = new System.Drawing.Point(30, 100);
         this.lblsalary.Name = "1blSalary";
         this.lblsalary.Size = new System.Drawing.Size(48, 17);
         this.lblsalary.Text = "Salary";
+
+        this.lblcountry = new System.Windows.Forms.Label(); 
+        this.lblcountry.AutoSize = true;
+        this.lblcountry.Location = new System.Drawing.Point(30, 150);
+        this.lblcountry.Name = "1blcountry";
+        this.lblcountry.Size = new System.Drawing.Size(48, 17);
+        this.lblcountry.Text = "Country";
 
         this.txtEmpId.Location = new System.Drawing.Point(170, 17);
         this.txtEmpId.Name = "txtEmpId";
@@ -76,28 +86,44 @@ partial class Form1
         this.txtSalary.Name = "txtSalary";
         this.txtSalary.Size = new System.Drawing.Size(150, 22);
 
-        this.btnAdd.Location = new System.Drawing.Point(350, 17);
+        this.cmbcountry = new System.Windows.Forms.ComboBox();        
+        this.cmbcountry.FormattingEnabled = true;
+        this.cmbcountry.Location = new System.Drawing.Point(170,147);
+        this.cmbcountry.Name = "cmbcountry";
+        this.cmbcountry.Size = new System.Drawing.Size(200, 24);
+        this.cmbcountry.TabIndex = 0;
+        this.cmbcountry.DropDownStyle = ComboBoxStyle.DropDownList;
+        this.Controls.Add(this.cmbcountry);
+
+        this.txtSearch.Location = new System.Drawing.Point(170, 187);
+        this.txtSearch.Name = "txtSearch";
+        this.txtSearch.Size = new System.Drawing.Size(150, 22);
+        this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+
+        
+
+        this.btnAdd.Location = new System.Drawing.Point(390, 17);
         this.btnAdd.Name = "btnAdd";
         this.btnAdd.Size = new System.Drawing.Size(100, 35);
         this.btnAdd.Text = "Add";
         this.btnAdd.UseVisualStyleBackColor = true;
         this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
 
-        this.btnUpdate.Location = new System.Drawing.Point(350, 57);
+        this.btnUpdate.Location = new System.Drawing.Point(390, 57);
         this.btnUpdate.Name = "btnUpdate";
         this.btnUpdate.Size = new System.Drawing.Size(100, 45);
         this.btnUpdate.Text = "Update";
         this.btnUpdate.UseVisualStyleBackColor = true;
         this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
 
-        this.btnDelete.Location = new System.Drawing.Point(350, 107);
+        this.btnDelete.Location = new System.Drawing.Point(390, 107);
         this.btnDelete.Name = "btnDelete";
         this.btnDelete.Size = new System.Drawing.Size(100, 45);
         this.btnDelete.Text = "Delete";
         this.btnDelete.UseVisualStyleBackColor = true;
         this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
 
-        this.btnView.Location = new System.Drawing.Point(350, 157);
+        this.btnView.Location = new System.Drawing.Point(390, 157);
         this.btnView.Name = "btnView";
         this.btnView.Size = new System.Drawing.Size(100, 45);
         this.btnView.Text = "View All";
@@ -106,10 +132,11 @@ partial class Form1
 
 
         this.dgvEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        this.dgvEmployees.Location = new System.Drawing.Point(30, 200);
+        this.dgvEmployees.Location = new System.Drawing.Point(30, 240);
         this.dgvEmployees.Name = "dgvEmployees";
         this.dgvEmployees.RowHeadersWidth = 51;
         this.dgvEmployees.Size = new System.Drawing.Size(500, 200);
+        this.dgvEmployees.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployees_CellClick);
         this.ClientSize = new System.Drawing.Size(600, 450);
         this.Controls.Add(this.dgvEmployees);
         this.Controls.Add(this.btnView);
@@ -117,21 +144,24 @@ partial class Form1
         this.Controls.Add(this.btnUpdate);
         this.Controls.Add(this.btnAdd);
         this.Controls.Add(this.txtSalary);
+        this.Controls.Add(this.txtSearch);
         this.Controls.Add(this.txtEmpId);
         this.Controls.Add(this.lblsalary);
         this.Controls.Add(this.txtEmpName);
         this.Controls.Add(this.lblEmpName);
         this.Controls.Add(this.lblEmpId);
+        this.Controls.Add(this.lblcountry);
         this.Name = "FrmEmployee";
         this.Text = "Employee Management";
 
 
 
     }
-    
+
+    private ComboBox cmbcountry;
     private DataGridView dgvEmployees;
     private Button btnAdd, btnUpdate, btnDelete, btnView;
-    private TextBox txtEmpId, txtSalary, txtEmpName;
-    private Label lblEmpName, lblEmpId, lblsalary;
+    private TextBox txtEmpId, txtSalary, txtEmpName,txtSearch;
+    private Label lblEmpName, lblEmpId, lblsalary,lblcountry;
     #endregion
 }

@@ -13,7 +13,35 @@ namespace test
         {
             InitializeComponent();
             LoadEmployee();
+            List<string> countries = new List<string>
+            {
+                "United States", "Canada", "United Kingdom", "Australia", "Germany",
+                "India", "China", "Japan", "France", "Brazil", "South Africa"
+            };
+            cmbcountry.DataSource = countries;
+            
         }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            
+            string searchText = txtSearch.Text.Trim().ToLower();  
+            FilterEmployees(searchText);
+
+        }
+
+        private void FilterEmployees(string searchText)
+        {
+            
+            if (dgvEmployees.DataSource is DataTable dt)
+            {
+                DataView dataView = new DataView(dt);
+                dataView.RowFilter = string.Format("c_name LIKE '%{0}%' OR c_country LIKE '%{0}%'", searchText);
+                dgvEmployees.DataSource = dataView;
+            }
+
+        }
+
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -23,7 +51,8 @@ namespace test
                 {
                     EmpId = int.Parse(txtEmpId.Text),
                     EmpName = txtEmpName.Text,
-                    EmpSalary = decimal.Parse(txtSalary.Text)
+                    EmpSalary = decimal.Parse(txtSalary.Text),
+                    Country = cmbcountry.SelectedItem.ToString()
                 };
                 service.AddEmployee(emp);
                 MessageBox.Show("Inserted!!");
@@ -44,7 +73,8 @@ namespace test
                 {
                     EmpId = int.Parse(txtEmpId.Text),
                     EmpName = txtEmpName.Text,
-                    EmpSalary = decimal.Parse(txtSalary.Text)
+                    EmpSalary = decimal.Parse(txtSalary.Text),
+                    Country = cmbcountry.SelectedItem.ToString()
                 };
                 bool updated = service.UpdateEmployee(emp);
                 if (updated)
@@ -112,6 +142,38 @@ namespace test
                 }
             }
         }
+        private void dgvEmployees_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex >= 0)
+            {
+                int rowIndex = e.RowIndex;
+
+
+                txtEmpId.Text = dgvEmployees.Rows[rowIndex].Cells["c_cid"].Value?.ToString() ?? string.Empty;
+
+                txtEmpName.Text = dgvEmployees.Rows[rowIndex].Cells["c_name"].Value?.ToString() ?? string.Empty;
+
+                var balanceValue = dgvEmployees.Rows[rowIndex].Cells["c_balance"].Value?.ToString();
+                cmbcountry.SelectedItem = dgvEmployees.Rows[rowIndex].Cells["c_country"].Value?.ToString() ?? string.Empty;
+
+                if (decimal.TryParse(balanceValue, out decimal salary))
+                {
+                    txtSalary.Text = salary.ToString();
+                }
+                else
+                {
+                    txtSalary.Clear();
+                }
+            }
+            else
+            {
+
+                clearfields();
+            }
+
+        }
+
 
         private void clearfields()
         {

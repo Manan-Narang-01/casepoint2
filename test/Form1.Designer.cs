@@ -34,6 +34,7 @@ partial class Form1
         this.Text = "Form1";
 
         this.lblEmpId = new System.Windows.Forms.Label();
+        this.lblerror = new System.Windows.Forms.Label();
         this.lblEmpName = new System.Windows.Forms.Label();
         this.lblsalary = new System.Windows.Forms.Label();
         this.txtEmpId = new System.Windows.Forms.TextBox();
@@ -59,6 +60,11 @@ partial class Form1
         this.lblEmpName.Size = new System.Drawing.Size(77, 17);
         this.lblEmpName.Text = "Emp Name";
 
+
+        this.lblerror.AutoSize = true;
+        this.lblerror.Location = new System.Drawing.Point(100,450);
+        this.lblerror.Name = "1blerror";
+        this.lblerror.Size = new System.Drawing.Size(77, 17);
         
 
         this.lblsalary.AutoSize = true;
@@ -150,6 +156,7 @@ partial class Form1
         this.Controls.Add(this.txtEmpName);
         this.Controls.Add(this.lblEmpName);
         this.Controls.Add(this.lblEmpId);
+        this.Controls.Add(this.lblerror);
         this.Controls.Add(this.lblcountry);
         this.Name = "FrmEmployee";
         this.Text = "Employee Management";
@@ -162,6 +169,6 @@ partial class Form1
     private DataGridView dgvEmployees;
     private Button btnAdd, btnUpdate, btnDelete, btnView;
     private TextBox txtEmpId, txtSalary, txtEmpName,txtSearch;
-    private Label lblEmpName, lblEmpId, lblsalary,lblcountry;
+    private Label lblEmpName, lblEmpId, lblsalary,lblcountry,lblerror;
     #endregion
 }

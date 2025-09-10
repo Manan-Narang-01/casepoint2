@@ -5,7 +5,7 @@ namespace test
 {
     public partial class Form1 : Form
     {
-    private string connectionstring = "Server=localhost;Port=5432;Database=intern093;User Id=postgres;Password=root";
+        private string connectionstring = "Server=localhost;Port=5432;Database=intern093;User Id=postgres;Password=root";
 
         private EmployeeService service = new EmployeeService();
 
@@ -19,20 +19,21 @@ namespace test
                 "India", "China", "Japan", "France", "Brazil", "South Africa"
             };
             cmbcountry.DataSource = countries;
-            
+
+            // lblerror.Text = "";
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            
-            string searchText = txtSearch.Text.Trim().ToLower();  
+
+            string searchText = txtSearch.Text.Trim().ToLower();
             FilterEmployees(searchText);
 
         }
 
         private void FilterEmployees(string searchText)
         {
-            
+
             if (dgvEmployees.DataSource is DataTable dt)
             {
                 DataView dataView = new DataView(dt);
@@ -45,6 +46,29 @@ namespace test
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            lblerror.Text = "";
+
+            if (string.IsNullOrEmpty(txtEmpId.Text) || string.IsNullOrEmpty(txtEmpName.Text) || string.IsNullOrEmpty(txtSalary.Text)) {
+                lblerror.Text = "All  fields are required!";
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtEmpId.Text))
+            {
+                lblerror.Text = "Employee ID is required!";
+                return;
+            }
+            if (string.IsNullOrEmpty(txtEmpName.Text))
+            {
+                lblerror.Text = "Employee Name is required!";
+                return;
+            }
+            if (string.IsNullOrEmpty(txtSalary.Text))
+            {
+                lblerror.Text = "Salary is required!";
+                return;
+            }
+
             try
             {
                 Employee emp = new Employee
@@ -54,21 +78,44 @@ namespace test
                     EmpSalary = decimal.Parse(txtSalary.Text),
                     Country = cmbcountry.SelectedItem.ToString()
                 };
+
                 service.AddEmployee(emp);
                 MessageBox.Show("Inserted!!");
                 LoadEmployee();
                 clearfields();
             }
+            catch (FormatException)
+            {
+                lblerror.Text = "Please enter valid values for Employee ID and Salary.";
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error!! " + ex.Message);
+                lblerror.Text = "Error: " + ex.Message;
             }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            lblerror.Text = "";
+
+            if (string.IsNullOrEmpty(txtEmpId.Text))
+            {
+                lblerror.Text = "Employee ID is required!";
+                return;
+            }
+            if (string.IsNullOrEmpty(txtEmpName.Text))
+            {
+                lblerror.Text = "Employee Name is required!";
+                return;
+            }
+            if (string.IsNullOrEmpty(txtSalary.Text))
+            {
+                lblerror.Text = "Salary is required!";
+                return;
+            }
+
             try
-            {   
+            {
                 Employee emp = new Employee
                 {
                     EmpId = int.Parse(txtEmpId.Text),
@@ -76,6 +123,7 @@ namespace test
                     EmpSalary = decimal.Parse(txtSalary.Text),
                     Country = cmbcountry.SelectedItem.ToString()
                 };
+
                 bool updated = service.UpdateEmployee(emp);
                 if (updated)
                 {
@@ -85,17 +133,29 @@ namespace test
                 }
                 else
                 {
-                    MessageBox.Show("Not Updated!!");
+                    lblerror.Text = "Failed to update employee. Please try again.";
                 }
+            }
+            catch (FormatException)
+            {
+                lblerror.Text = "Please enter valid values for Employee ID and Salary.";
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error!! " + ex.Message);
+                lblerror.Text = "Error: " + ex.Message;
             }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            lblerror.Text = "";
+
+            if (string.IsNullOrEmpty(txtEmpId.Text))
+            {
+                lblerror.Text = "Employee ID is required to delete!";
+                return;
+            }
+
             try
             {
                 int EmpId = int.Parse(txtEmpId.Text);
@@ -108,24 +168,28 @@ namespace test
                 }
                 else
                 {
-                    MessageBox.Show("Not Deleted!!");
+                    lblerror.Text = "Failed to delete employee. Please try again.";
                 }
+            }
+            catch (FormatException)
+            {
+                lblerror.Text = "Please enter a valid Employee ID.";
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error!! " + ex.Message);
+                lblerror.Text = "Error: " + ex.Message;
             }
         }
 
         private void btnView_Click(object sender, EventArgs e)
         {
+            lblerror.Text = "";
             LoadEmployee();
         }
 
-         private void LoadEmployee()
+        private void LoadEmployee()
         {
             string sql = "SELECT * FROM t1 ORDER BY c_cid";
-
             using (var connection = new NpgsqlConnection(connectionstring))
             using (var cmd = new NpgsqlCommand(sql, connection))
             {
@@ -138,7 +202,7 @@ namespace test
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error loading employees: " + ex.Message);
+                    lblerror.Text = "Error loading employees: " + ex.Message;
                 }
             }
         }
@@ -181,5 +245,7 @@ namespace test
             txtEmpName.Clear();
             txtSalary.Clear();
         }
+
     }
+
 }

@@ -20,22 +20,26 @@ public class EmployeeService
 
     public List<Employee> GetAllEmployee()
     {
-        var list = new List<Employee>();
-        using var conn = new NpgsqlConnection(connectionstring);
-        conn.Open();
-        using var command = new NpgsqlCommand("SELECT * FROM t1", conn);
-        using var reader = command.ExecuteReader();
-        while (reader.Read())
-        {
-            list.Add(new Employee
+        
+
+            var list = new List<Employee>();
+            using var conn = new NpgsqlConnection(connectionstring);
+            conn.Open();
+            using var command = new NpgsqlCommand("SELECT * FROM t1", conn);
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                EmpId = reader.GetInt32(0),
-                EmpName = reader.GetString(1),
-                EmpSalary = reader.GetInt32(2),
-                Country = reader.GetString(3)
-            });
-        }
-        return list;
+                list.Add(new Employee
+                {
+                    EmpId = reader.GetInt32(0),
+                    EmpName = reader.GetString(1),
+                    EmpSalary = reader.GetInt32(2),
+                    Country = reader.GetString(3)
+                });
+            }
+            return list;
+        
+        
     }
 
     public Employee GetEmployee(int id)

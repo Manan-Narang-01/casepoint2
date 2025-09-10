@@ -189,7 +189,7 @@ namespace test
 
         private void LoadEmployee()
         {
-            string sql = "SELECT * FROM t1 ORDER BY c_cid";
+            string sql = "SELECT *,(SELECT SUM(c_balance) FROM t1) AS TotalSalary FROM t1 ORDER BY c_cid;";
             using (var connection = new NpgsqlConnection(connectionstring))
             using (var cmd = new NpgsqlCommand(sql, connection))
             {
@@ -199,6 +199,8 @@ namespace test
                     DataTable dt = new DataTable();
                     dt.Load(cmd.ExecuteReader());
                     dgvEmployees.DataSource = dt;
+
+               
                 }
                 catch (Exception ex)
                 {
